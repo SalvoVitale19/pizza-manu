@@ -1,0 +1,84 @@
+<div class="container text-center">
+  <!-- Button trigger modal -->
+  <button
+    type="button"
+    class="btn btn-primary mt-5"
+    data-bs-toggle="modal"
+    data-bs-target="#exampleModal"
+    [disabled]="totale <= 0"
+  >
+    CARRELLO
+  </button>
+  <div class="row row-cols-4">
+    <div *ngFor="let pizza of pizzas" class="col mb-5 mt-5">
+      <div class="card border-dark" style="width: 18rem">
+        <img src="{{ pizza.image }}" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h4 class="card-title">{{ pizza.name }}</h4>
+          <h5 class="card-title mb-5">${{ pizza.price }}</h5>
+          <p class="card-text">
+            <button
+              [disabled]="pizza.quantity <= 0"
+              class="btn btn-danger"
+              (click)="delete(pizza)"
+            >
+              -
+            </button>
+            <span class="m-5"> {{ pizza.quantity }}</span>
+            <button class="btn btn-primary" (click)="add(pizza)">+</button>
+          </p>
+          <button
+            class="btn btn-outline-danger mt-3"
+            (click)="deletePizza(pizza.id)"
+          >
+            ELIMINA
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Pizze Ordinate</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div *ngFor="let pizza of this.carrello" class="modal-body d-flex">
+        <img class="img" src="{{ pizza.image }}" alt="" />
+        <h5>{{ pizza.name }}: {{ pizza.quantity }} * {{ pizza.price }}</h5>
+      </div>
+      <div class="d-flex justify-content-end">
+        <h5 class="m-1">tot: {{ totale.toFixed(2) }}</h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="reset()"
+          routerLink="/menu"
+        >
+          Buy
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
