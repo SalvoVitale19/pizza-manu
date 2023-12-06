@@ -25,18 +25,10 @@ export class PizzaMenuComponent {
   add(pizza: Pizza) {
     this.pizzaService.getPizza(pizza.id).subscribe((ris) => {
       this.pizza = ris;
-      if (this.carrello.find((cal) => cal.id == this.pizza?.id)) {
-        this.pizza.quantity = pizza.quantity;
-        this.totale = this.totale + pizza.price;
-        this.carrello = this.carrello.filter(
-          (ris) => ris.id !== this.pizza?.id
-        );
-        this.carrello.push(this.pizza);
-      } else {
-        this.pizza.quantity = pizza.quantity;
-        this.totale = this.totale + pizza.price;
-        this.carrello.push(this.pizza);
-      }
+      this.pizza.quantity = pizza.quantity;
+      this.totale = this.totale + pizza.price;
+      this.carrello = this.carrello.filter((ris) => ris.id !== this.pizza?.id);
+      this.carrello.push(this.pizza);
     });
     pizza.quantity++;
   }
@@ -44,17 +36,13 @@ export class PizzaMenuComponent {
   delete(pizza: Pizza) {
     this.pizzaService.getPizza(pizza.id).subscribe((ris) => {
       this.pizza = ris;
-      if (this.carrello.find((cal) => cal.id == this.pizza?.id)) {
-        this.pizza.quantity = pizza.quantity;
-        this.totale = this.totale - pizza.price;
-        this.carrello = this.carrello.filter(
-          (ris) => ris.id !== this.pizza?.id
-        );
-        this.carrello.push(this.pizza);
-        console.log(this.totale);
-        if (this.pizza.quantity == 0) {
-          this.carrello.pop();
-        }
+      this.pizza.quantity = pizza.quantity;
+      this.totale = this.totale - pizza.price;
+      this.carrello = this.carrello.filter((ris) => ris.id !== this.pizza?.id);
+      this.carrello.push(this.pizza);
+      console.log(this.totale);
+      if (this.pizza.quantity == 0) {
+        this.carrello.pop();
       }
     });
     pizza.quantity--;
