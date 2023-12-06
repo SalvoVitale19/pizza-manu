@@ -9,7 +9,7 @@ import { Pizza } from 'src/app/models/pizza.models';
   styleUrls: ['./pizza-menu.component.css'],
 })
 export class PizzaMenuComponent {
-  pizzas: Pizza[] = [];
+  pizzas?: Pizza[];
   pizza: Pizza | undefined;
   carrello: Pizza[] = [];
   totale: number = 0;
@@ -49,7 +49,7 @@ export class PizzaMenuComponent {
   }
 
   deletePizza(id: number) {
-    this.pizzas = this.pizzas.filter((ris) => ris.id !== id);
+    this.pizzas = this.pizzas?.filter((ris) => ris.id !== id);
   }
 
   reset() {
